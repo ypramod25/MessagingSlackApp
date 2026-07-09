@@ -49,3 +49,34 @@ export const fetchWorkspaceDetailsRequest = async ({token, workspaceId}) => {
         throw error.response.data;
     }
 }
+
+export const deleteWorkspaceRequest = async ({token, workspaceId}) => {
+    
+    try{
+        const response = await axios.delete(`/workspaces/${workspaceId}`, {
+            headers: {
+                'x-access-token':token
+            }
+        });
+        console.log('Response in deleting workspace request is : ', response);
+        return response?.data?.data;
+    } catch (error) {
+        console.log('Error in deleting workspace request', error);
+        throw error.response.data;
+    }
+}
+
+export const updateWorkspaceRequest = async ({workspaceId, token, name}) => {
+    try{
+        const response = await axios.put(`/workspaces/${workspaceId}`, {name}, {
+            headers: {
+                'x-access-token':token
+            }
+        });
+        console.log('Response in updating workspace request is : ', response);
+        return response?.data?.data;
+    } catch (error) {
+        console.log('Error in updating workspace request', error);
+        throw error.response.data;
+    }
+}

@@ -23,19 +23,21 @@ export const WorkspacePreferencesModal = () => {
                             <p className="font-semibold text-sm">
                                 Workspace Name
                             </p>
-                            <p className="text-sm font-semibold hover:underline">
+                            <p className="text-sm font-semibold text-blue-500 hover:underline">
                                 Edit
                             </p>
                         </div>
+                        <p className="text-sm font-semibold text-gray-500 mt-1">
+                            {initialValue}
+                        </p>
                     </div>
                         <button className="flex items-center gap-x-2 px-5 py-4 bg-white rounded-lg border cursor-pointer hover:bg-gray-50">
                             <TrashIcon className="size-5"/>
-                            <p >
+                            <p className="text-sm font-semibold text-red-500 hover:underline">
                                 Delete Workspace
                             </p>
                         </button>
                 </div>
-                
             </DialogContent>
         </Dialog>
     )

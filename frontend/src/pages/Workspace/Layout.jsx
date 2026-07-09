@@ -12,12 +12,11 @@ export const WorkspaceLayout = ({children}) => {
                 <ResizablePanelGroup
                     direction="horizontal"
                     className="flex-1"
-                    // id="workspace-layout" // 👈 ADD THIS LINE
-                    // autoSaveId="workspace-resize"
+                    autoSaveId="workspace-layout"
                 >
                     <ResizablePanel
-                        defaultSize={20}
-                        minSize={105}
+                        defaultSize={30}
+                        minSize={25}
                         className="bg-slack-medium"
                     >
                         <WorkspacePanel/>
@@ -26,8 +25,8 @@ export const WorkspaceLayout = ({children}) => {
                     <ResizableHandle withHandle />
 
                     <ResizablePanel
-                        defaultSize={80}
-                        minSize={200}
+                        defaultSize={70}
+                        minSize={25}
                     >
                         {children}
                     </ResizablePanel>
