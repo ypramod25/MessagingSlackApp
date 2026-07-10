@@ -58,15 +58,25 @@ export const createWorkspaceService = async (workspaceData) => {
     }
 }
 
+// export const getWorkspacesUserIsMemberOfService = async (userId) => {
+//     try {
+//         const response = await workspaceRepository.fetchallWorkspaceByMemberId(userId);
+//         if(response.length === 0) {
+//             throw new ValidationError({
+//                 error: ['User is not part of any workspace']
+//             }, 'User is not part of any workspace');
+//         }
+//         return response;
+//     } catch (error) {
+//         console.log("Error in getWorkspacesUserIsMemberOfService:", error);
+//         throw error;
+//     }
+// }
 export const getWorkspacesUserIsMemberOfService = async (userId) => {
     try {
         const response = await workspaceRepository.fetchallWorkspaceByMemberId(userId);
-        if(response.length === 0) {
-            throw new ValidationError({
-                error: ['User is not part of any workspace']
-            }, 'User is not part of any workspace');
-        }
-        return response;
+
+        return response;      // <-- even if it's []
     } catch (error) {
         console.log("Error in getWorkspacesUserIsMemberOfService:", error);
         throw error;
