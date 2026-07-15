@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 export const useUpdateWorkspace = (workspaceId) => {
     const {auth} = useAuth();
 
-    const {isFetching, isSuccess, error, mutateAsync: updatedWorkspace} = useMutation({
+    const {isFetching, isSuccess, error, mutateAsync: updateWorkspaceMutation} = useMutation({
         mutationFn:(name) => updateWorkspaceRequest({token: auth?.token, workspaceId, name}),
         queryKey: ['updateWorkspace'],
         onSuccess: (data) => {
@@ -20,6 +20,6 @@ export const useUpdateWorkspace = (workspaceId) => {
         isFetching, 
         isSuccess, 
         error, 
-        updatedWorkspace
+        updateWorkspaceMutation
     })
 }
