@@ -6,7 +6,7 @@ export default function messageHandler(io, socket) {
         const messageResponse = await createMessageService(data);
         const {channelId} = data;
         // socket.broadcast.emit(NEW_MESSAGE_RECEIVED_EVENT, messageResponse);
-        io.to(channelId).emit(NEW_MESSAGE_RECEIVED_EVENT, messageResponse);
+        io.to(channelId).emit(NEW_MESSAGE_RECEIVED_EVENT, messageResponse);// send message to all users in the channel
         cb({
             success: true,
             message: "Message created successfully",
