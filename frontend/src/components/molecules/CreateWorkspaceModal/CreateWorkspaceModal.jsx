@@ -16,7 +16,7 @@ export const CreateWorkspaceModal = () => {
 
     const {isPending, createWorkspaceMutation} = useCreateWorkspace();
 
-    const navigate = useNavigate();
+    const navigate = useNavigate(); 
 
     function handleClose() {
         setOpenCreateWorkspaceModal(false);

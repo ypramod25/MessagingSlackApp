@@ -23,7 +23,7 @@ export const WorkspacePanelSection = ({children, label, onIconClick}) => {
                 >
                     <span>{label}</span>
                 </Button>
-                {onIconClick && (
+                {open && (
                     <Button
                         onClick={onIconClick}
                         variant="transparent"
@@ -34,7 +34,7 @@ export const WorkspacePanelSection = ({children, label, onIconClick}) => {
                     </Button>
                 )}
             </div>
-            {open && children}
+            {open && children} 
         </div>
     )
-} 
+}  
