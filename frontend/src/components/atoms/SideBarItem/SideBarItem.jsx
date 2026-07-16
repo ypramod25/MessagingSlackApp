@@ -4,7 +4,7 @@ import { cva } from "class-variance-authority"; // cva is a utility function tha
 import { cn } from "@/lib/utils";
 
 const sideBarItemVariants = cva(
-    'flex items-center justify-start gap-1.5 font-normal h-7 px-0.5 text-sm overflow-hidden',
+    'flex items-center justify-start gap-1.5 font-normal h-7 px-5 text-sm overflow-hidden',
     {
         variants: {
             variant: {
