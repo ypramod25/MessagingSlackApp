@@ -10,11 +10,20 @@ import ClientError from '../utils/errors/clientError.js';
 import ValidationError from '../utils/errors/validationError.js';
 
 const isUserAdminOfWorkspace = (workspace, userId) => {
-    return workspace.members.some(member => member.memberId.toString() === userId && member.role === 'admin');
+    return workspace.members.some(member => {
+        const id = member.memberId._id || member.memberId;
+        return (
+            id.toString() === userId.toString() &&
+            member.role === "admin"
+        );
+    });
 }
 
 export const isUserMemberOfWorkspace = (workspace, userId) => {
-    return workspace.members.some(member => member.memberId.toString() === userId);
+    return workspace.members.some((member) => {
+        const id = member.memberId._id || member.memberId;
+        return id.toString() === userId.toString();
+    });
 }
 
 const isChannelAlreadyPartOfWorkspace = (workspace, channelName) => {
@@ -85,7 +94,7 @@ export const getWorkspacesUserIsMemberOfService = async (userId) => {
 
 export const getWorkspaceByIdService = async (workspaceId, userId) => {
     try {
-        const workspace = await workspaceRepository.getById(workspaceId);
+        const workspace = await workspaceRepository.getWorkspaceDetailsById(workspaceId);
         if(!workspace) {
             throw new ClientError({
                 explanation: 'Workspace with the provided id does not exist',
@@ -163,7 +172,7 @@ export const getWorkspaceByJoinCodeService = async (joinCode, userId) => {
 
 export const updateWorkspaceService = async (workspaceId, userId, workspaceData) => {
     try {
-        const workspace = await workspaceRepository.getById(workspaceId);
+        const workspace = await workspaceRepository.get(workspaceId);
         if(!workspace) {
             throw new ClientError({
                 explanation: 'Workspace with the provided id does not exist',
