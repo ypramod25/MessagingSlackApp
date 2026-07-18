@@ -172,7 +172,7 @@ export const getWorkspaceByJoinCodeService = async (joinCode, userId) => {
 
 export const updateWorkspaceService = async (workspaceId, userId, workspaceData) => {
     try {
-        const workspace = await workspaceRepository.get(workspaceId);
+        const workspace = await workspaceRepository.getWorkspaceDetailsById(workspaceId);
         if(!workspace) {
             throw new ClientError({
                 explanation: 'Workspace with the provided id does not exist',
