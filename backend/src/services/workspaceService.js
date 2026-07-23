@@ -289,3 +289,25 @@ export const addChannelToWorkspaceService = async (workspaceId, userId, channelN
         throw error;
     }
 }
+
+export const joinWorkspaceService = async (workspaceId, joinCode, userId) => {
+    try {
+        const workspace = await workspaceRepository.getWorkspaceDetailsById(workspaceId);
+        
+        if(workspace.joinCode !== joinCode) {
+            throw new ClientError({
+                explanation: 'Workspace with the provided joinCode does not exist',
+                message: 'Invalid workspace id',
+                statusCode: StatusCodes.NOT_FOUND
+            })
+        }
+
+        const updatedWorkspace = await workspaceRepository.addMemberToWorkspace(workspaceId, userId, 'member');
+
+        return updatedWorkspace;
+
+    } catch (error) {
+        console.log('joinWorkspace Service error', error);
+        throw error;
+    }
+}
