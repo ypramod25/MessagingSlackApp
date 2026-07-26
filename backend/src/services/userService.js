@@ -1,14 +1,26 @@
 import bcrypt from 'bcrypt'
 import { StatusCodes } from "http-status-codes";
 
+import { ENABLE_EMAIL_VERIFICATION } from '../config/serverConfig.js';
+import { addEmailToMailQueue } from '../producers/mailQueueProducers.js';
 import userRepository from "../repositories/userRepository.js"
 import { createJWT } from "../utils/common/authUtils.js";
+import { verifyEmailMail } from '../utils/common/mailObject.js';
 import ClientError from "../utils/errors/clientError.js";
 import ValidationError from "../utils/errors/validationError.js";
 
 export const signUpService = async (data) => {
-    try {
+    try {  
         const newUser = await userRepository.create(data);
+
+        if(ENABLE_EMAIL_VERIFICATION === true) {
+            //send the email verification mail
+            addEmailToMailQueue({
+                ...verifyEmailMail(newUser.verificationToken),
+                to: newUser.email
+            });
+        }
+
         return newUser;
     } catch (error) {
         console.log('User service error', error);
@@ -27,6 +39,39 @@ export const signUpService = async (data) => {
         throw error;
     }
 };
+
+export const verifyTokenService = async (token) => {
+    try {
+        const user = await userRepository.getByToken(token);        
+        if(!user) {
+            throw new ClientError({
+                explanation: 'Invalid Data send from the client',
+                message: 'No registered user found with this token',
+                statusCode: StatusCodes.NOT_FOUND
+            });
+        }
+        //check if token is expired or not 
+        
+        if(user.verificationTokenExpiry < Date.now()) {
+            throw new ClientError({
+                explanation: 'Invalid data sent from client , token expired',
+                message: 'Token expired',
+                statusCode: StatusCodes.BAD_REQUEST
+            })
+        }
+
+        user.isVerified = true;
+        user.verificationToken = null;
+        user.verificationTokenExpiry = null;
+        await user.save();
+
+        return user;
+
+    } catch (error) {
+        console.log('Error in verifying the token service', error);
+        throw error;
+    }
+}
 
 export const signInService = async (data) => {
     try{

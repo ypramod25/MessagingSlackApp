@@ -11,6 +11,7 @@ import connectDB from './config/dbConfig.js';
 import { PORT } from './config/serverConfig.js';
 import channelSocketHandler from './controllers/channelSocketController.js';
 import messageSocketHandler from './controllers/messageSocketController.js';
+import { verifyEmailController } from './controllers/userController.js';
 import apiRouter from './routes/apiRouter.js';
 
 
@@ -32,6 +33,8 @@ app.use('/ui', serverAdapter .getRouter());
 app.use(express.json()); // To parse JSON request bodies
 app.use(express.urlencoded({ extended: true })); // To parse URL-encoded request bodies (e.g., form submissions)
 app.use('/api', apiRouter);
+
+app.get('/verify/:token', verifyEmailController);
 
 app.get('/ping', (req, res) => {
   return res.status(StatusCodes.OK).json({ message: 'pong' });

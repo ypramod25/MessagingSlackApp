@@ -45,7 +45,7 @@ export const WorkspaceInviteModal = ({openInviteModal, setOpenInviteModal, works
                     </Button>
                     {/* Link to redirect the user in a new tab to the join page */}
                     <a
-                        href={`/workspaces/join/${workspaceId}`}
+                        href={`/workspaces/${workspaceId}/join`}
                         target="_blank"
                         rel="noreferrer"
                         className='text-blue-500'

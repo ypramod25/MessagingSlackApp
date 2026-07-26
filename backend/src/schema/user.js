@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
+import { v4 as uuidv4 } from 'uuid';
 
 const userSchema = new mongoose.Schema(
   {
@@ -23,6 +24,16 @@ const userSchema = new mongoose.Schema(
     },
     avatar: {
       type: String
+    },
+    isVerified: {
+      type: Boolean,
+      default: false
+    },
+    verificationToken: {
+      type: String
+    },
+    verificationTokenExpiry: {
+      type: Date
     }
   },
   { timestamps: true }
@@ -33,6 +44,7 @@ const userSchema = new mongoose.Schema(
  */
 userSchema.pre("save", async function () {
   // IMPORTANT: only hash if password is new or modified
+  // this refers to user
   if (!this.isModified("password")) return;
 
   const salt = await bcrypt.genSalt(10);
@@ -42,6 +54,10 @@ userSchema.pre("save", async function () {
   if (!this.avatar) {
     this.avatar = `https://robohash.org/${this.username}?size=200x200`;
   }
+
+  this.verificationToken = uuidv4().substring(0, 10).toUpperCase();
+  this.verificationTokenExpiry = Date.now() + 3600 * 1000;
+
 });
 
 const User = mongoose.model("User", userSchema);
