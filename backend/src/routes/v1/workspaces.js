@@ -5,7 +5,6 @@ import { isAuthenticated } from '../../middlewares/authMiddleware.js';
 import { addChannelToWorkspaceSchema, addMemberToWorkspaceSchema, createWorkspaceSchema } from '../../validators/workspaceSchema.js';
 import { validate } from '../../validators/zodValidator.js';
 
-
 const router = express.Router();
 
 router.post('/', isAuthenticated, validate(createWorkspaceSchema), createWorkspaceController);
