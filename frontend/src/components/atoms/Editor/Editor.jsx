@@ -1,5 +1,14 @@
+import 'quill/dist/quill.snow.css'; // ES6
+
+import { PiTextAa } from 'react-icons/pi';
+
+import { Button } from '@/components/ui/button';
+
 import Quill from 'quill';
+
 import { useEffect, useRef, useState } from 'react';
+import { Hint } from '../Hint/Hint';
+import { ImageIcon } from 'lucide-react';
 
 export const Editor = ({
     variant = 'create',
@@ -20,8 +29,16 @@ export const Editor = ({
     const quillRef = useRef();
     const placeholderRef = useRef();
 
-    useEffect(() => {
+    function toggleToolbar() {
+        setIsToolbarVisible(!isToolbarVisible);
+        const toolbar = containerRef.current.querySelector('.ql-toolbar');
+        if(toolbar) {
+            toolbar.classList.toggle('hidden');
+        }
+    }
 
+    useEffect(() => {
+ 
         if(!containerRef.current) return; // if containerRef is not initialized, return
 
         const container = containerRef.current; // get the container element
@@ -35,7 +52,7 @@ export const Editor = ({
                 toolbar: [
                     ['bold', 'italic', 'underline', 'strike'],
                     ['link', 'image'],
-                    [{ list: 'ordered' }, { list: 'bullet' }],
+                    [{ list: 'ordered' }, {   list: 'bullet' }],
                     ['clean']
                 ],
                 keyboard: {
@@ -74,10 +91,42 @@ export const Editor = ({
         >
  
             <div
-                className='flex flex-col border border-slate-300 rounded-md overflow-hidden focus-within:shadow-sm focus-within:border-slate-400 bg-white transition focus-within:'
+                className='flex flex-col border border-slate-300 rounded-md overflow-hidden focus-within:shadow-sm focus-within:border-slate-400 bg-white '
             >
-                <div ref={containerRef} />
+                <div className='h-full ql-custom' ref={containerRef} />
+                <div className='flex px-2 pb-2 z-'>
+
+                    <Hint label={!isToolbarVisible ? 'Show toolbar' : 'Hide toolbar'} side='bottom' align='center'>
+                        <Button
+                            size="iconSm"
+                            variant="ghost"
+                            disabled={false}
+                            onClick={toggleToolbar}
+                        >
+                            <PiTextAa className='size-4' />
+                        </Button>
+                    </Hint>
+
+                    <Hint label="Image">
+                        <Button
+                            className='px-2'
+                            size="iconSm"
+                            variant="ghost"
+                            disabled={false}
+                            onClick={() => {}}
+                        >
+                            <ImageIcon className='size-4' />
+                        </Button>
+                    </Hint>
+
+                </div>
             </div>
+
+            <p
+                className='p-2 text-[10px] text-mutes-foreground flex justify-end'
+            >
+                <strong>Shift + return</strong> &nbsp; to add a new line
+            </p>
 
         </div>
     );
