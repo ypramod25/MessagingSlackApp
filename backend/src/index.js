@@ -17,7 +17,11 @@ import apiRouter from './routes/apiRouter.js';
 
 const app = express();
 const server = createServer(app); // common server where both express and socket.io will run
-const io = new Server(server); // Create a Socket.IO server instance
+const io = new Server(server, {
+  cors: {
+    origin: '*'
+  }
+}); // Create a Socket.IO server instance
 
 // Socket.IO connection handler
 io.on('connection', (socket) => {
