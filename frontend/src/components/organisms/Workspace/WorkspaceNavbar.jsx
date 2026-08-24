@@ -20,7 +20,7 @@ export const WorkspaceNavbar = () => {
 
         if(!isFetching && !isSuccess && error) {
             console.log('Error fetching workspace', error.status);
-            if(error.status === 403) {
+            if(error?.status === 401) {
                 logout();
                 navigate('/auth/signin');
             }
