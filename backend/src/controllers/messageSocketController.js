@@ -18,8 +18,8 @@ export default function messageHandler(io, socket) {
 /*
 {
     "body":"random1",
-    "channelId":"69855d228004ae1a0804c99b",
-    "senderId":"69650b78b1d2ac01613c6589",
-    "workspaceId":"6988152b6056881a52498429"
+    "channelId":"6a5839f854a6330996466a58",
+    "senderId":"6a30c64086f343dbed775a03",
+    "workspaceId":"6a5839f854a6330996466a50"
 }
 */
