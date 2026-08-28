@@ -7,7 +7,7 @@ import { isUserMemberOfWorkspace } from "./workspaceService.js";
 
 export const getMessagesService = async (messageParams, page, limit, user) => {
     try {
-        const channelDetails = await channelRepository.channelDetails(messageParams.channelId);
+        const channelDetails = await channelRepository.getChannelWithWorkspaceDetails(messageParams.channelId);
 
         const workspace = channelDetails.workspaceId;
         const isMember = isUserMemberOfWorkspace(workspace, user);
