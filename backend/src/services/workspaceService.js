@@ -21,8 +21,8 @@ const isUserAdminOfWorkspace = (workspace, userId) => {
 
 export const isUserMemberOfWorkspace = (workspace, userId) => {
     return workspace.members.some((member) => {
-        const id = member.memberId._id || member.memberId;
-        return id.toString() === userId.toString();
+        const id = member.memberId?._id || member.memberId;
+        return id && id.toString() === userId.toString();
     });
 }
 
@@ -117,6 +117,45 @@ export const getWorkspaceByIdService = async (workspaceId, userId) => {
         throw error;
     }
 }
+
+// export const getWorkspaceByIdService = async (workspaceId, userId) => {
+//     try {
+//         const workspace =
+//             await workspaceRepository.getWorkspaceDetailsById(workspaceId);
+
+//         console.log("========== WORKSPACE DEBUG ==========");
+//         console.log("workspace:", workspace.name);
+//         console.log("userId:", userId);
+
+//         console.log(
+//             "members:",
+//             workspace.members.map(member => ({
+//                 id: member.memberId?._id || member.memberId,
+//                 username: member.memberId?.username,
+//                 role: member.role
+//             }))
+//         );
+
+//         const isMember = isUserMemberOfWorkspace(workspace, userId);
+
+//         console.log("isMember:", isMember);
+//         console.log("=====================================");
+
+//         if (!isMember) {
+//             throw new ClientError({
+//                 explanation: 'User is not member of the workspace',
+//                 message: 'User is not the member of the workspace',
+//                 statusCode: StatusCodes.UNAUTHORIZED
+//             });
+//         }
+
+//         return workspace;
+
+//     } catch (error) {
+//         console.log("Error in getWorkspaceByIdService:", error);
+//         throw error;
+//     }
+// };
 
 export const deleteWorkspaceService = async (workspaceId, userId) => {
     try {
