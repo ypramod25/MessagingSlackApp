@@ -13,9 +13,9 @@ export const signUpService = async (data) => {
     try {  
         const newUser = await userRepository.create(data);
 
-        if(ENABLE_EMAIL_VERIFICATION === true) {
+        if(ENABLE_EMAIL_VERIFICATION === 'true') {
             //send the email verification mail
-            addEmailToMailQueue({
+             addEmailToMailQueue({
                 ...verifyEmailMail(newUser.verificationToken),
                 to: newUser.email
             });

@@ -1,9 +1,10 @@
+import { JoinWorkspaceModal } from "@/components/organisms/Modals/JoinWorkspaceModal"
 import { WorkspaceInviteModal } from "@/components/organisms/Modals/WorkspaceInviteModal"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useAuth } from "@/hooks/context/useAuth"
 import { useWorkspacePreferencesModal } from "@/hooks/context/useWorkspacePreferencesModal"
-import { ChevronDownIcon, ListFilterIcon, SquarePenIcon } from "lucide-react"
+import { ChevronDownIcon, ListFilterIcon, PlusIcon, SquarePenIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 
 export const WorkspacePanelHeader = ({workspace}) => {
@@ -11,6 +12,7 @@ export const WorkspacePanelHeader = ({workspace}) => {
     const workspaceMembers = workspace?.members;
 
     const [openInviteModal, setOpenInviteModal] = useState(false);
+    const [openJoinModal, setOpenJoinModal] = useState(false);
 
     const {auth} = useAuth();
 
@@ -28,6 +30,11 @@ export const WorkspacePanelHeader = ({workspace}) => {
 
     return (
         <>
+            <JoinWorkspaceModal
+            open={openJoinModal}
+            setOpen={setOpenJoinModal}
+        />
+
             <WorkspaceInviteModal 
                 openInviteModal={openInviteModal} 
                 setOpenInviteModal={setOpenInviteModal} 
@@ -100,6 +107,13 @@ export const WorkspacePanelHeader = ({workspace}) => {
                         size='iconSm'
                     >
                         <SquarePenIcon className="size-5" />
+                    </Button>
+                    <Button
+                        variant="transparent"
+                        size="iconSm"
+                        onClick={() => setOpenJoinModal(true)}
+                    >
+                        <PlusIcon className="size-5" />
                     </Button>
                 </div>
             </div>

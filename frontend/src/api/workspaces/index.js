@@ -138,3 +138,23 @@ export const joinWorkspaceRequest = async ({workspaceId, joinCode, token}) => {
         throw error.response.data;
     }
 }
+
+export const joinWorkspaceByJoinCodeRequest = async ({ joinCode, token }) => {
+    try {
+        const response = await axios.post(
+            `/workspaces/join-by-code`,
+            { joinCode },
+            {
+                headers: {
+                    'x-access-token': token
+                }
+            }
+        );
+
+        return response?.data?.data;
+
+    } catch (error) {
+        console.log('Error in joining workspace by join code', error);
+        throw error.response.data;
+    }
+};

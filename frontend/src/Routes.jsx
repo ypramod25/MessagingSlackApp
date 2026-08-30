@@ -8,11 +8,13 @@ import { ProtectedRoute } from "./components/molecules/ProtectedRoute/ProtectedR
 import { WorkspaceLayout } from "./pages/Workspace/Layout"
 import { JoinPage } from "./pages/Workspace/JoinPage"
 import { Channel } from "./pages/Workspace/Channel/Channel"
+import { JoinWorkspace } from "./pages/Workspace/JoinWorkspacePage"
 
 export const AppRoutes = () => {
     return (
         <Routes>
             <Route path="/auth/signup" element={<Auth><SignupContainer /></Auth>} />
+            <Route path="/" element={<Auth><SigninContainer /></Auth>} />
             <Route path="/auth/signin" element={<Auth><SigninContainer /></Auth>} />
             <Route path="/home" element={<ProtectedRoute><HomePage/></ProtectedRoute>} />
             
@@ -24,6 +26,11 @@ export const AppRoutes = () => {
             <Route 
                 path="/workspaces/:workspaceId/channels/:channelId" 
                 element={<ProtectedRoute><WorkspaceLayout><Channel/></WorkspaceLayout></ProtectedRoute>}
+            />
+
+            <Route
+                path="/workspace/join"
+                element={<JoinWorkspace />}
             />
             
             <Route path="/workspaces/join/:workspaceId" element={<JoinPage />} />

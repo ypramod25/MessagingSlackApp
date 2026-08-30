@@ -20,6 +20,7 @@ export const SigninCard = ({
     const navigate = useNavigate();
 
     return (
+        <>
         <Card className="w-full h-full">
             <CardHeader>
                 <CardTitle>Sign In</CardTitle>
@@ -89,5 +90,6 @@ export const SigninCard = ({
                 </p>
             </CardContent>
         </Card>
+        </>
     )
 }

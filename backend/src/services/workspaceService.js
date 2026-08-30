@@ -21,6 +21,9 @@ const isUserAdminOfWorkspace = (workspace, userId) => {
 
 export const isUserMemberOfWorkspace = (workspace, userId) => {
     return workspace.members.some((member) => {
+        if (!member.memberId || !userId) {
+            return false;
+        }
         const id = member.memberId?._id || member.memberId;
         return id && id.toString() === userId.toString();
     });
@@ -350,3 +353,41 @@ export const joinWorkspaceService = async (workspaceId, joinCode, userId) => {
         throw error;
     }
 }
+
+export const joinWorkspaceByJoinCodeService = async (joinCode, userId) => {
+    try {
+
+         console.log("JOIN CODE =", joinCode);
+        console.log("USER ID =", userId);
+
+        const workspace =
+            await workspaceRepository.getWorkspaceByJoinCode(joinCode);
+
+        const isMember =
+            isUserMemberOfWorkspace(workspace, userId);
+
+        if (isMember) {
+            throw new ClientError({
+                message: 'Already a member',
+                explanation: 'User is already a member of this workspace',
+                statusCode: StatusCodes.CONFLICT
+            });
+        }
+
+        workspace.members.push({
+            memberId: userId,
+            role: 'member'
+        });
+
+        await workspace.save();
+
+        return workspace;
+
+    } catch (error) {
+        console.log(
+            'Error in joinWorkspaceByJoinCodeService:',
+            error
+        );
+        throw error;
+    }
+};

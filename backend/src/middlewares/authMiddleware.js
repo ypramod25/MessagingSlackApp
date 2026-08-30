@@ -30,7 +30,7 @@ export const isAuthenticated = async(req, res, next) => {
         const user = await userRepository.getById(response.id);
         req.user = user.id;
         next();
-    } catch (error) {
+    } catch (error) {   
         console.log('Auth middleware error', error);
         if(error.name === 'TokenExpiredError') {
             return res.status(StatusCodes.UNAUTHORIZED).json(
