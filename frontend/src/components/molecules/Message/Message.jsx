@@ -22,7 +22,7 @@ export const Message = ({
                         <AvatarFallback
                             className="rounded-md bg-sky-500 text-white text-sm"
                         >
-                            {authorName.charAt(0).toUpperCase()}
+                            {authorName?.charAt(0).toUpperCase()}
                         </AvatarFallback>
                     </Avatar>
                 </button>

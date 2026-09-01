@@ -5,8 +5,9 @@ import { useGetChannelById } from '@/hooks/apis/channels/useGetChannelById';
 import { useGetChannelMessages } from '@/hooks/apis/channels/useGetChannelMessages';
 import { useChannelMessages } from '@/hooks/context/useChannelMessages';
 import { useSocket } from '@/hooks/context/useSocket';
+import { useQueryClient } from '@tanstack/react-query';
 import { Loader2Icon, TriangleAlert } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 export const Channel = () => {
@@ -18,6 +19,20 @@ export const Channel = () => {
     const {joinChannel} = useSocket();
 
     const {messages, isSuccess} = useGetChannelMessages(channelId);
+
+    const messageListContainerRef = useRef(null);
+
+    const queryClient = useQueryClient();
+
+    useEffect(() => {
+        queryClient.invalidateQueries('getPaginatedMessages');
+    }, [channelId])
+
+    useEffect(() => {
+        if(messageListContainerRef.current) {
+            messageListContainerRef.current.scrollTop = messageListContainerRef.current.scrollHeight;
+        }
+    }, [messageList])
 
     useEffect(() => {
         if(!isFetching && !isError) {
@@ -56,21 +71,26 @@ export const Channel = () => {
     return (
         <div className='flex flex-col h-full'>
             <ChannelHeader name={channelDetails?.name}/>
-            {messageList?.map((message) => {
-                return (
-                    <Message
-                        key={message._id}
-                        body={message.body}
-                        authorImage={message.senderId?.avatar}
-                        authorName={message.senderId?.username}
-                        createdAt={new Date(message.createdAt).toLocaleTimeString([], {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        })}
-                    />
-                );
-            })}
-                        <div className='flex-1'></div>
+            <div 
+                ref={messageListContainerRef}
+                className='flex-6 overflow-y-auto p-5 gap-y-2'
+            >
+                {messageList?.map((message) => {
+                    return (
+                        <Message
+                            key={message._id}
+                            body={message.body}
+                            authorImage={message.senderId?.avatar}
+                            authorName={message.senderId?.username}
+                            createdAt={new Date(message.createdAt).toLocaleTimeString([], {
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            })}
+                        />
+                    );
+                })}
+            </div>
+            <div className='flex-1'></div>
             <ChatInput />
 
         </div>
