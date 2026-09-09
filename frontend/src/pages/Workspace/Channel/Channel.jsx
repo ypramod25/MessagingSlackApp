@@ -32,7 +32,7 @@ export const Channel = () => {
         if(messageListContainerRef.current) {
             messageListContainerRef.current.scrollTop = messageListContainerRef.current.scrollHeight;
         }
-    }, [messageList])
+    }, [messageList]);
 
     useEffect(() => {
         if(!isFetching && !isError) {
@@ -73,7 +73,7 @@ export const Channel = () => {
             <ChannelHeader name={channelDetails?.name}/>
             <div 
                 ref={messageListContainerRef}
-                className='flex-6 overflow-y-auto p-5 gap-y-2'
+                className='flex-5 overflow-y-auto p-5 gap-y-2'
             >
                 {messageList?.map((message) => {
                     return (
@@ -86,6 +86,7 @@ export const Channel = () => {
                                 hour: '2-digit',
                                 minute: '2-digit'
                             })}
+                            image={message.image}
                         />
                     );
                 })}
