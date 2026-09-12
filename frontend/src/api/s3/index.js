@@ -13,12 +13,13 @@ export const uploadImageToAWSpresignedUrl = async ({ url, file }) => {
         return response;
     } catch(error) {
         console.log('Error in uploading image to s3', error);
+        throw error;
     }
 };
 
 export const getPresignedUrlFromAWS = async ({token}) => {
     try {
-        const response = await axios.get('/messages/pre-signed-url', {
+        const response = await axiosConfig.get('/messages/pre-signed-url', {
             headers : {
                 'x-access-token': token
             }
@@ -26,5 +27,6 @@ export const getPresignedUrlFromAWS = async ({token}) => {
         return response?.data?.data;
     } catch (error) {
         console.log('Error in getting presigned Url ', error);
+        throw error;
     }
 }

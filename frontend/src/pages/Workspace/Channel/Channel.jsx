@@ -25,14 +25,14 @@ export const Channel = () => {
     const queryClient = useQueryClient();
 
     useEffect(() => {
-        queryClient.invalidateQueries('getPaginatedMessages');
-    }, [channelId])
-
-    useEffect(() => {
         if(messageListContainerRef.current) {
             messageListContainerRef.current.scrollTop = messageListContainerRef.current.scrollHeight;
         }
     }, [messageList]);
+
+    useEffect(() => {
+        queryClient.invalidateQueries('getPaginatedMessages');
+    }, [channelId])
 
     useEffect(() => {
         if(!isFetching && !isError) {
