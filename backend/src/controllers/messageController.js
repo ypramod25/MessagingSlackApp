@@ -1,9 +1,9 @@
 import { StatusCodes } from "http-status-codes";
 
+import {s3} from "../config/awsConfig.js"
+import { AWS_BUCKET_NAME } from "../config/serverConfig.js";
 import { getMessagesService } from "../services/messageService.js";
 import { customErrorResponse, internalErrorResponse, successResponse } from "../utils/common/responseObjects.js";
-import { AWS_BUCKET_NAME } from "../config/serverConfig.js";
-import {s3} from "../config/awsConfig.js"
 
 export const getMessagesController = async (req, res) => {
     try {

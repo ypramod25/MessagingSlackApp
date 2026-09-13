@@ -3,9 +3,9 @@ import express from "express";
 import channelRouter from "./channel.js";
 import memberRouter from "./member.js";
 import messageRouter from "./messages.js";
+import paymentRouter from "./payment.js";
 import userRouter from "./users.js";
 import workspaceRouter from "./workspaces.js";
-import paymentRouter from "./payment.js";
 
 const router = express.Router();
 
