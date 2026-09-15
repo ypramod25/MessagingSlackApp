@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useCaptureOrder } from "@/hooks/apis/payments/useCaptureOrder";
+import { useEffect } from "react";
 
 const loadRazorpayScript = (src) => {
     return new Promise((res, rej) => {
@@ -23,6 +24,8 @@ export const RenderRazorpayPopup = ({
     currency,
     amount
 }) => {
+
+    const {captureOrderMutation} = useCaptureOrder();
     
     const display = async (options) => {
         const scriptResponse = await loadRazorpayScript('https://checkout.razorpay.com/v1/checkout.js');
@@ -33,7 +36,8 @@ export const RenderRazorpayPopup = ({
 
         const rzp = new window.Razorpay(options);
 
-        rzp.on('payment.failed',async function (response){
+        //on payment failed
+        rzp.on('payment.failed', async function (response){
             console.log('Payment failed', response.error.code);
             await captureOrderMutation({
                 orderId: options.order_id,
@@ -53,6 +57,15 @@ export const RenderRazorpayPopup = ({
             name: "Pramod Yadav", // name of the company
             description: "Test Transaction",
             order_id: orderId,
+            handler: async (response) => {
+                console.log('Payment success', response);
+                await captureOrderMutation({
+                    orderId:orderId,
+                    status:'success',
+                    paymentId:response.razorpay_payment_id,
+                    signature:response.razorpay_signature
+                })
+            }
         })
         
     }, [orderId]);
