@@ -2,8 +2,8 @@ import { StatusCodes } from "http-status-codes";
 
 import razorpay from '../config/razorpayConfig.js';
 import { CURRENCY, RECEIPT_SECRET } from "../config/serverConfig.js";
-import { internalErrorResponse } from "../utils/common/responseObjects.js";
 import { createPaymentService, updatePaymentStatusService } from "../services/paymentService.js";
+import { internalErrorResponse } from "../utils/common/responseObjects.js";
 export const createOrderController = async (req, res) => {
     try {
         const options = {
@@ -41,7 +41,7 @@ export const capturePaymentController = async (req, res) => {
         return res.status(StatusCodes.OK).json({
             success:true,
             message:'Payment captured successfully!',
-            data:payment
+            data:''
         });
     } catch (error) {
         console.log('Error in capturePaymentController', error);

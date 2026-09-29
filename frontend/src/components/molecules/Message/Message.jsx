@@ -15,7 +15,7 @@ export const Message = ({
         >
 
             <div
-                className="flex items-center gap-2"
+                className="flex items-start gap-2"
             >
 
                 <button>
