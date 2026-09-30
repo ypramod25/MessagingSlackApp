@@ -1,0 +1,321 @@
+{
+  "info": {
+    "_postman_id": "ba8b6dce-1451-463b-af8c-d0dae5069ce8",
+    "name": "Message Slack APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49610322",
+    "_collection_link": "https://go.postman.co/collection/49610322-ba8b6dce-1451-463b-af8c-d0dae5069ce8?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "ping check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://16.171.168.251:3000/ping",
+          "protocol": "http",
+          "host": [
+            "16",
+            "171",
+            "168",
+            "251"
+          ],
+          "port": "3000",
+          "path": [
+            "ping"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "signUpUsers",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{dev_server}}/api/v1/users/signup",
+          "host": [
+            "{{dev_server}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "signup"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "signInUsers",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{dev_server}}/api/v1/users/signup",
+          "host": [
+            "{{dev_server}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "signup"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "createWorkspace",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{dev_server}}/api/v1/users/signup",
+          "host": [
+            "{{dev_server}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "signup"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete workspace",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "x-access-token",
+            "value": "{{authToken}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{dev_server}}/api/v1/workspaces/6985b65b133dd2031e59112a",
+          "host": [
+            "{{dev_server}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "workspaces",
+            "6985b65b133dd2031e59112a"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get workspaces",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-access-token",
+            "value": "{{authToken}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{dev_server}}/api/v1/workspaces/6985b65b133dd2031e59112a",
+          "host": [
+            "{{dev_server}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "workspaces",
+            "6985b65b133dd2031e59112a"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get a workspace",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "workspace by joincode",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "updateWorkspace",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{dev_server}}/api/v1/workspaces/6988152b6056881a52498429",
+          "host": [
+            "{{dev_server}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "workspaces",
+            "6988152b6056881a52498429"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "add member to workspace",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{dev_server}}/api/v1/workspaces/6988152b6056881a52498429",
+          "host": [
+            "{{dev_server}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "workspaces",
+            "6988152b6056881a52498429"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "add channels to workspace",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "x-access-token",
+            "value": "{{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "ayjisd",
+              "type": "text",
+              "uuid": "9ec979a4-3258-4a89-b16d-672989f13d9d"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{dev_server}}/api/v1/workspaces/6988152b6056881a52498429/channels",
+          "host": [
+            "{{dev_server}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "workspaces",
+            "6988152b6056881a52498429",
+            "channels"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get channel by id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{dev_server}}/api/v1/workspaces/6988152b6056881a52498429",
+          "host": [
+            "{{dev_server}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "workspaces",
+            "6988152b6056881a52498429"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "isMember of workspace",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{dev_server}}/api/v1/workspaces/6988152b6056881a52498429",
+          "host": [
+            "{{dev_server}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "workspaces",
+            "6988152b6056881a52498429"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getpresignedurl",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "dev_server",
+      "value": ""
+    },
+    {
+      "key": "authToken",
+      "secret": true
+    }
+  ]
+}
